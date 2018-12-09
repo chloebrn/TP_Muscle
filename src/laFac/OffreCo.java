@@ -2,6 +2,7 @@ package laFac;
 
 public abstract class OffreCo {
 	private double taux;
+	private ArrayList <Produits> pdtConcerne; //liste de produits beneficiant d'une offre co
 	
     public double getTaux() {
 		return taux;
