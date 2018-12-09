@@ -11,13 +11,16 @@ public class Client {
     	sonPanier=new Panier();
     	sonStat=new ClientSimple();
     }
-    
-
-	public String getNom() {
+	//o: client x
+   public Client(String n, Panier p, Satut s) {
+    	nom=n;
+    	sonPanier=p;
+    	sonStat=s;
+    }
+    public String getNom() {
 		return nom;
 	}
-
-	public void setNom(String nom) {
+    public void setNom(String nom) {
 		this.nom = nom;
 	}
 
