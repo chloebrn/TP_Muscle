@@ -2,7 +2,7 @@ package laFac;
 
 public abstract class OffreCo {
 	private double taux;
-	private ArrayList <Produits> pdtConcerne; //liste de produits beneficiant d'une offre co
+	private ArrayList<Produit> pdtConcerne; //O:liste de produits beneficiant d'une offre co
 	
     public double getTaux() {
 		return taux;
@@ -24,6 +24,11 @@ public abstract class OffreCo {
 	void recalculePrix(Produit p) {
 		p.setPrix(p.getPrix()*taux);
 	}
-	
+	//O:reclacule bis
+	void recalculePrixb(ArrayList<Produit> pdtConcerne) {
+		for(Produit p:pdtConcerne) {
+			p.setPrix(p.getPrix()*taux);
+		}
+	}
 	
 }
