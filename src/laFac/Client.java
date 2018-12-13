@@ -1,26 +1,32 @@
 package laFac;
 
+import java.util.ArrayList;
 
 public class Client {
     private String nom;
     private Panier sonPanier;
     private Statut sonStat;
+    private static ArrayList<Statut> lesClients=new ArrayList<>();
 
     public Client() {
     	nom="undefined";
     	sonPanier=new Panier();
     	sonStat=new ClientSimple();
+    	
     }
-	//o: client x
-   public Client(String n, Panier p, Satut s) {
-    	nom=n;
-    	sonPanier=p;
-    	sonStat=s;
+    
+    public Client(String sonNom) {
+    	nom=sonNom;
+    	sonPanier=new Panier();
+    	sonStat=new ClientSimple();
+    	
     }
-    public String getNom() {
+
+	public String getNom() {
 		return nom;
 	}
-    public void setNom(String nom) {
+
+	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
@@ -44,5 +50,64 @@ public class Client {
 		sonPanier.getContenu().add(p);
 	}
 	
+	public static ArrayList<Statut> getLesClients() {
+		return lesClients;
+	}
 
+
+	public static void setLesClients(ArrayList<Statut> lesClients) {
+		Client.lesClients = lesClients;
+	}
+	
+	//Ajouter un nouveau client à la base de donnees
+	public static void addClient(Statut s) {
+		if(lesClients.contains(s)) {
+			//Exception
+		}
+		lesClients.add(s);
+	}
+	
+	
+	//Un simple client tente de se connecter avec un identifiant 
+	public void seConnecter(String id, String typeCompte) {
+		
+		if(sonStat.equals(typeCompte)) {
+			//exception
+		}
+		else if(typeCompte=="MembrePersonnel") {
+			MembrePersonnel m=new MembrePersonnel(id);
+			seConnecter(m);
+		}
+		else if(typeCompte=="Adherent") {
+			Adherent a=new Adherent(id);
+			seConnecter(a);
+		}
+		else {
+			//exception
+		}
+	}
+
+
+	private void seConnecter(Statut id) {
+		if(lesClients.contains(id)) {
+			int i=lesClients.indexOf(id);
+			sonStat=lesClients.get(i); 
+		}
+		else {
+			//exception
+		}
+	}
+	
+	//
+	public void seDeconnecter() {
+		if(sonStat instanceof ClientSimple) {
+			//Exception
+		}
+		else {
+			sonStat=new ClientSimple();
+		}
+	}
+	
+	
+	
 }
