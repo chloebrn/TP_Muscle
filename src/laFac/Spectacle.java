@@ -1,7 +1,7 @@
 package laFac;
 
 public class Spectacle extends Produit{
-	public Spectacle(String i, float p, int pts, String a) {
+	public Spectacle(String i, double p, int pts, String a) {
 		super(i, p, pts);
 		artiste=a;
 		
