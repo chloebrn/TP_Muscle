@@ -2,21 +2,21 @@ package laFac;
 
 import java.util.ArrayList;
 
-public class Adherent extends Statut {
+public class Adherent implements Statut {
     private String mailAdherent;
-    private String mdpAdherent;
     private ArrayList<CarteDeFidelite> sesCartes;
     private ArrayList<OffreAdherent> sesOffres;
 
     public Adherent() {
     	mailAdherent="undefined";
-    	mdpAdherent="undefined";
     	sesCartes=new ArrayList<CarteDeFidelite>();
+    }
+    public Adherent(String id) {
+    	mailAdherent=id;
     }
     
     public Adherent(String m, String mdp, ArrayList<CarteDeFidelite> c) {
     	mailAdherent=m;
-    	mdpAdherent=mdp;
     	sesCartes=c;
     }
 
@@ -26,14 +26,6 @@ public class Adherent extends Statut {
 
 	public void setMailAdherent(String mailAdherent) {
 		this.mailAdherent = mailAdherent;
-	}
-
-	public String getMdpAdherent() {
-		return mdpAdherent;
-	}
-
-	public void setMdpAdherent(String mdpAdherent) {
-		this.mdpAdherent = mdpAdherent;
 	}
 
 	public ArrayList<CarteDeFidelite> getSesCartes() {
@@ -51,4 +43,31 @@ public class Adherent extends Statut {
 	public void setSesOffres(ArrayList<OffreAdherent> sesOffres) {
 		this.sesOffres = sesOffres;
 	}
+
+	public void sonStatut(Client c) {
+		c.setSonStat(this);
+	}
+	
+	public void addCarte(int points) {
+		CarteDeFidelite c=new CarteDeFidelite(points);
+		sesCartes.add(c);
+	}
+	
+
+	
+	public String toString() {
+        return "Le statut du client est Adherent";
+    }
+    
+    public boolean equals(Object o) {
+    	if(o==this) return true;
+    	if(o==null) return false;
+    	if(o instanceof Adherent) {
+    		Adherent a=(Adherent) o;
+			System.out.println("o est adherent");
+    		return a.mailAdherent==this.mailAdherent;
+    	}
+		return false;
+    }
+    
 }
