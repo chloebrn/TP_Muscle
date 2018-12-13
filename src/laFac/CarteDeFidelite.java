@@ -4,6 +4,9 @@ public class CarteDeFidelite {
 	
 	private int ptsDeFidelite;
 	
+	public CarteDeFidelite(int p) {
+		ptsDeFidelite=p;
+	}
 	public int getPointsDeFidelite() {
 		return ptsDeFidelite;
 	}
@@ -11,5 +14,7 @@ public class CarteDeFidelite {
 	public void setPointsDeFidelite(int pointsDeFidelite) {
 		this.ptsDeFidelite = pointsDeFidelite;
 	}
+	
+	
 
 }
