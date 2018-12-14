@@ -45,6 +45,12 @@ public abstract class Produit {
 	
 	//ABDOULAYE
 	@Override
+	public String toString() {
+		return "Produit [id=" + id + ", prix=" + prix + ", pointsDeFidelite=" + pointsDeFidelite + "]";
+	}
+	
+	//ABDOULAYE
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
