@@ -3,11 +3,17 @@ package laFac;
 import java.util.ArrayList;
 
 public class Panier {
-    private ArrayList<Produit> contenu;
-    private double total;
-	private IObserveur dir; // ABDOULAYE
+	private double total;
+	private IObserveur dir; //observeur, la direction marketing // ABDOULAYE
+	private HashPerso<Produit> listArticle; // ABDOULAYE
+
+	public Panier() {
+		listArticle = new HashPerso<>(); //ABDOULAYE
+		total = 0;
+	}
 	
 	//ABDOULAYE
+	//construteur du panier avec un observeur
 	public Panier(IObserveur io) {
 		this();
 		dir = io;
@@ -15,63 +21,53 @@ public class Panier {
 
 	// ABDOULAYE
 	public void ajouterProduit(Produit p) {
-		contenu.add(p);
+		listArticle.add(p);
+	}
+	
+	//obtenir la liste des articles sans doublon
+	public ArrayList<Produit> getContenu() {
+		return listArticle.elements();     //ABDOULAYE
 	}
 
-    public ArrayList<Produit> getContenu() {
-        return this.contenu;
-    }
-
-    public void setContenu(ArrayList<Produit> contenu) {
-        this.contenu = contenu;
-    }
-
-    public Panier() {
-        this.contenu = new ArrayList<Produit>();
-	this.total=0; //O
-    }
-
-    public Panier(ArrayList<Produit> contenu) {
-        this.contenu = contenu;
-    }
-
+	//accesseur de total
 	public double getTotal() {
 		return total;
 	}
 
-	public void setTotal(double t) {
+	public void setTotal(float t) {
 		this.total = t;
 	}
-	
-	public double total() {
-		double t=0.;
-		if(contenu.size()!=0) {
-			for(Produit p: contenu) {
-			t+=p.getPrix();
-			
+
+	//calcul de la total, chaque prix d'un produit est multiplié par sa quantite
+	public void total() {
+		ArrayList<Produit> contenu = getContenu();
+		int quant ;
+		if (contenu.size() != 0) {
+			for (Produit p : contenu) {
+				quant = listArticle.count(p); //récupérer la quantité de cette produit
+				total += (p.getPrix()*quant);
+			}
 			alerteProduit();  //ABDOULAYE
 			alerteCombinProd(); //ABDOULAYE
 		}
-		}
-		return t; 
 	}
-	
+
 	// ABOULAYE
+	//alerter l'oberserveur pour les produits ajoutés par le clients
 	public void alerteProduit() {
-		for (Produit p : contenu) {
-			dir.majProduit(p);
+		for (Produit p : getContenu()) {
+			//chaque produit et sa quantite
+			dir.majProduit(p, listArticle.count(p));
 		}
 	}
 
 	// ABDOULAYE
+	//notifier l'observeur pour une combinaison de produits
 	public void alerteCombinProd() {
-		dir.majCombProd(contenu);
+		dir.majCombProd(getContenu());
 	}
 	
-	//o:ajout article
-	public void ajoutArticle(Produit p){
-		this.contenu.add(p);
+	public void imprimeTicket() {
+		System.out.println(listArticle.toString());
 	}
-	public void alerte(){}
 }
-
