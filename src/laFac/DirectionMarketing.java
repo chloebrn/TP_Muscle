@@ -9,24 +9,24 @@ import java.util.Map.Entry;
 
 public class DirectionMarketing implements IObserveur {
 	
-	private Map<Produit, Integer> quantProd;
+	private HashPerso<Produit> quantProd;
 	private List<Produit> combinProd;
 	
 	public DirectionMarketing() {
-		quantProd = new HashMap<>();
+		quantProd = new HashPerso<>();
 		combinProd = new ArrayList<>();
 	}
 
 	//ajouter un produit
 	@Override
 	public void majProduit(Produit p) {
-		addProd(p, 1);
+		quantProd.add(p);
 	}
 	
 	//ajouter un produit avec sa quantite
 	@Override
 	public void majProduit(Produit p, int quantite) {
-		addProd(p, quantite);
+		quantProd.add(p, quantite);
 	}
 	
 	//maj à effectuer si le panier contient la liste de produit, combinProd
@@ -49,27 +49,9 @@ public class DirectionMarketing implements IObserveur {
 		combinProd.add(p);
 	}
 	
-	//ajouter le produit p avec sa quantite dans la map
-	private void addProd(Produit p, int quant) {
-		//ajouter au moins un produit
-		if(quant < 1)
-			throw new IllegalArgumentException("arguments non valides");
-		Integer val = quantProd.get(p);
-		if(val == null) {
-			quantProd.put(p, quant);
-		}
-		else {
-			quantProd.put(p, quant+val);
-		}
-	}
 	
 	public void afficheProdQuant() {
-		Iterator<Entry<Produit, Integer>> it = quantProd.entrySet().iterator();
-		Entry<Produit, Integer> ent ;
-		while(it.hasNext()) {
-			ent = it.next();
-			System.out.println(ent.getKey().getId() + " de quantite " + ent.getValue());
-		}
+		quantProd.toString();
 	}
 	
 
