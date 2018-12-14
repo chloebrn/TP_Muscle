@@ -27,9 +27,11 @@ public abstract class OffreCo {
 		p.setPrix(p.getPrix()*taux);
 	}*/
 	//O:reclacule bis
-	void recalculePrixb(ArrayList<Produit> pdtConcerne) {
-		for(Produit p:pdtConcerne) {
-			p.setPrix(p.getPrix()*taux);
+	void recalculePrixb(Pannier pannier) {
+		for(Produit p:pannier.getContenu()) {
+			if(pdConcerne.contains(p)){
+				p.setPrix(p.getPrix()*taux);
+			}
 		}
 	}
 	
