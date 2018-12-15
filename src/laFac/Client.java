@@ -60,10 +60,10 @@ public class Client {
 
 
 	//Un simple client tente de se connecter avec un identifiant
-	public void seConnecter(String id, String typeCompte) {
-
-		if(sonStat.equals(typeCompte)) {
-			//exception
+	public void seConnecter(String id, String typeCompte) throws ErreurStatut {
+		
+		if(!(sonStat instanceof ClientSimple)) {
+			throw new ErreurStatut("Le client est déjà connecté");
 		}
 		else if(typeCompte=="MembrePersonnel") {
 			MembrePersonnel m=new MembrePersonnel(id);
@@ -74,7 +74,7 @@ public class Client {
 			seConnecter(a);
 		}
 		else {
-			//exception
+			throw new ErreurStatut("Le type de compte n'est pas defini");
 		}
 	}
 
@@ -89,10 +89,10 @@ public class Client {
 		}
 	}
 
-	//
-	public void seDeconnecter() {
+	//un client avec un statut autre que ClientSimple se déconnecte
+	public void seDeconnecter() throws ErreurStatut {
 		if(sonStat instanceof ClientSimple) {
-			//Exception
+			throw new ErreurStatut("Le client est déjà déconnecté");
 		}
 		else {
 			sonStat=new ClientSimple();
