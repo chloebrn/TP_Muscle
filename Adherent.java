@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 public class Adherent implements Statut {
     private String mailAdherent;
-    private String mdpAdherent;
     private ArrayList<CarteDeFidelite> sesCartes;
     private ArrayList<OffreAdherent> sesOffres;
 
     public Adherent() {
     	mailAdherent="undefined";
-    	mdpAdherent="undefined";
     	sesCartes=new ArrayList<CarteDeFidelite>();
+    }
+    public Adherent(String id) {
+    	mailAdherent=id;
     }
     
     public Adherent(String m, String mdp, ArrayList<CarteDeFidelite> c) {
     	mailAdherent=m;
-    	mdpAdherent=mdp;
     	sesCartes=c;
     }
 
@@ -26,14 +26,6 @@ public class Adherent implements Statut {
 
 	public void setMailAdherent(String mailAdherent) {
 		this.mailAdherent = mailAdherent;
-	}
-
-	public String getMdpAdherent() {
-		return mdpAdherent;
-	}
-
-	public void setMdpAdherent(String mdpAdherent) {
-		this.mdpAdherent = mdpAdherent;
 	}
 
 	public ArrayList<CarteDeFidelite> getSesCartes() {
@@ -52,12 +44,54 @@ public class Adherent implements Statut {
 		this.sesOffres = sesOffres;
 	}
 
-	@Override
 	public void sonStatut(Client c) {
 		c.setSonStat(this);
 	}
-    @Override
-    public String toString() {
+	
+	public void addCarte(int points) {
+		CarteDeFidelite c=new CarteDeFidelite(points);
+		sesCartes.add(c);
+	}
+	
+
+	
+	public String toString() {
         return "Le statut du client est Adherent";
     }
+    
+    public boolean equals(Object o) {
+    	if(o==this) return true;
+    	if(o==null) return false;
+    	if(o instanceof Adherent) {
+    		Adherent a=(Adherent) o;
+			System.out.println("o est adherent");
+    		return a.mailAdherent==this.mailAdherent;
+    	}
+		return false;
+    }
+    
+    public CarteDeFidelite carteMax() {
+    	if(sesCartes.isEmpty()) return null;
+    	CarteDeFidelite c=sesCartes.get(0);
+    	for(CarteDeFidelite carte:sesCartes) {
+    		if((carte.getSeuil()-carte.getPointsDeFidelite())<(c.getSeuil()-c.getPointsDeFidelite())) {
+    			c=carte;
+    		}
+    	}
+    	return c;
+    }
+    
+
+
+    public void payer(Panier sonPanier) {
+		CarteDeFidelite c=carteMax();
+		if(sonPanier.getContenu().isEmpty()) return; //EXCEPTION
+		c.update(sonPanier);
+		System.out.println("Total : " +sonPanier.getTotal());
+		
+		
+		
+		
+	}
+    
 }
