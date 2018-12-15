@@ -7,12 +7,15 @@ public class MembrePersonnel extends Statut {
     private ArrayList<OffreMembre> sesReductions;
 
     public MembrePersonnel(){
+        super();
         mailPerso="undefined";
         sesReductions=new ArrayList<>();
     }
 
-    public MembrePersonnel(String mail){
-       mailPerso=mail;
+    public MembrePersonnel(String mail) {
+        super();
+        mailPerso=mail;
+        sesReductions=new ArrayList<>();
     }
 
 	public String getMailPerso() {
@@ -52,7 +55,7 @@ public class MembrePersonnel extends Statut {
         if(o==null) return false;
         if(o instanceof MembrePersonnel) {
             MembrePersonnel m=(MembrePersonnel) o;
-            return m.mailPerso==this.mailPerso;
+            return m.mailPerso.equals(this.mailPerso);
         }
         return false;
     }

@@ -60,10 +60,10 @@ public class Client {
 
 
 	//Un simple client tente de se connecter avec un identifiant
-	public void seConnecter(String id, String typeCompte) throws ErreurStatut {
-		
-		if(!(sonStat instanceof ClientSimple)) {
-			throw new ErreurStatut("Le client est déjà connecté");
+	public void seConnecter(String id, String typeCompte) {
+
+		if(sonStat.equals(typeCompte)) {
+			//exception
 		}
 		else if(typeCompte=="MembrePersonnel") {
 			MembrePersonnel m=new MembrePersonnel(id);
@@ -74,25 +74,25 @@ public class Client {
 			seConnecter(a);
 		}
 		else {
-			throw new ErreurStatut("Le type de compte n'est pas defini");
+			//exception
 		}
 	}
 
 
-	private void seConnecter(Statut id) throws ErreurVide {
+	private void seConnecter(Statut id) {
 		if(lesClients.contains(id)) {
 			int i=lesClients.indexOf(id);
-			sonStat=lesClients.get(i); 
+			sonStat=lesClients.get(i);
 		}
 		else {
-			throw new ErreurVide("Il n'y a aucun client donc pas de connexion possible");
+			//exception
 		}
 	}
 
-	//un client avec un statut autre que ClientSimple se déconnecte
-	public void seDeconnecter() throws ErreurStatut {
+	//
+	public void seDeconnecter() {
 		if(sonStat instanceof ClientSimple) {
-			throw new ErreurStatut("Le client est déjà déconnecté");
+			//Exception
 		}
 		else {
 			sonStat=new ClientSimple();
@@ -100,7 +100,7 @@ public class Client {
 	}
 
 	public void ajoutProduit(Produit p) {
-		sonPanier.getContenu().add(p);
+		sonPanier.ajoutArticle(p);
 	}
 	public void payer(){
     	sonStat.calculReduction(sonPanier);

@@ -6,6 +6,10 @@ public abstract class Statut {
 	protected ArrayList<OffreProduit> offrePdts;
 	protected ArrayList<OffreFlash> offreFlash;
 
+	public Statut() {
+		offrePdts=new ArrayList<>();
+		offreFlash=new ArrayList<>();
+	}
 
 	public void sonStatut(Client c){
 		c.setSonStat(this);

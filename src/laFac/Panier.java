@@ -12,14 +12,10 @@ public class Panier extends Observable {
     public Panier() {
         this.sesObservateurs = new ArrayList<Observer>();
         this.contenu = new ArrayList<Produit>();
-		this.total=0; //O
-    }
+		this.total=0;
+	}
 
-   /* public Panier(ArrayList<Produit> contenu) {
-        this.contenu = contenu;
-    }*/
-
-	public ArrayList<Produit> getContenu() {
+  	public ArrayList<Produit> getContenu() {
 		return this.contenu;
 	}
 
@@ -43,7 +39,9 @@ public class Panier extends Observable {
 		if(contenu.size()!=0) {
 			for(Produit p: contenu) {
 			t+=p.getPrix();
-		}
+			}
+			//total=t;
+
 		/*if(total>=100) this.notifyObservers();*/
 		}
 		return t; 
@@ -51,7 +49,7 @@ public class Panier extends Observable {
 
 	public void ajoutArticle(Produit p){
 		contenu.add(p);
-		total+=p.getPrix();//utile?
+		total+=p.getPrix();
     }
 
 	@Override

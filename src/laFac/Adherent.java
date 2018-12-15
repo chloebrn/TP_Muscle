@@ -8,18 +8,18 @@ public class Adherent extends Statut {
     private ArrayList<OffreAdherent> sesOffres;
 
     public Adherent() {
+    	super();
     	mailAdherent="undefined";
-    	sesCartes=new ArrayList<CarteDeFidelite>();
+    	sesCartes=new ArrayList<>();
+		sesOffres=new ArrayList<>();
     }
 	public Adherent(String id) {
+		super();
 		mailAdherent=id;
+		sesCartes=new ArrayList<>();
+		sesOffres=new ArrayList<>();
 	}
-    public Adherent(String m, String mdp, ArrayList<CarteDeFidelite> c) {
-    	mailAdherent=m;
-    	sesCartes=c;
-    }
-
-	public String getMailAdherent() {
+   	public String getMailAdherent() {
 		return mailAdherent;
 	}
 
