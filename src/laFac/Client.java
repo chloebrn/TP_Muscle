@@ -79,13 +79,13 @@ public class Client {
 	}
 
 
-	private void seConnecter(Statut id) {
+	private void seConnecter(Statut id) throws ErreurVide {
 		if(lesClients.contains(id)) {
 			int i=lesClients.indexOf(id);
-			sonStat=lesClients.get(i);
+			sonStat=lesClients.get(i); 
 		}
 		else {
-			//exception
+			throw new ErreurVide("Il n'y a aucun client donc pas de connexion possible");
 		}
 	}
 
