@@ -53,11 +53,27 @@ public class Adherent extends Statut {
 	public void sonStatut(Client c) {
 		c.setSonStat(this);
 	}*/
+	//trouver la carte la plus proche du seuil
+	public CarteDeFidelite carteMax() {
+		if(sesCartes.isEmpty()) return null;
+		CarteDeFidelite c=sesCartes.get(0);
+		for(CarteDeFidelite carte:sesCartes) {
+			if((carte.getSeuil()-carte.getTotalPoints())<(c.getSeuil()-c.getTotalPoints())) {
+				c=carte;
+			}
+		}
+		return c;
+	}
 	public void calculReduction(Panier panier){
+		//modifie les prix des produits ayant une offre flash ou offre produit
 		super.calculReduction(panier);
+		//applique offre adherent aux produit concerne
 		for(OffreAdherent oAd:sesOffres){
 			oAd.changerPrix(panier);
 		}
+		//appliquer rabais
+		CarteDeFidelite c=carteMax();
+		c.effectueRabais(panier);
 	}
     public String toString() {
         return "Le statut du client est Adherent";
@@ -68,7 +84,7 @@ public class Adherent extends Statut {
 		if(o instanceof Adherent) {
 			Adherent a=(Adherent) o;
 			System.out.println("o est adherent");
-			return a.mailAdherent==this.mailAdherent;
+			return a.mailAdherent.equals(this.mailAdherent);
 		}
 		return false;
 	}
