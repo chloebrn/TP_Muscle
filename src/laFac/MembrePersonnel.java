@@ -2,18 +2,17 @@ package laFac;
 
 import java.util.ArrayList;
 
-public class MembrePersonnel implements Statut {
+public class MembrePersonnel extends Statut {
     private String mailPerso;
-    private String mdpPerso;
     private ArrayList<OffreMembre> sesReductions;
 
-    
-    public MembrePersonnel() {
-    	mailPerso="undefined";
-    	sesReductions=new ArrayList<>();
+    public MembrePersonnel(){
+        mailPerso="undefined";
+        sesReductions=new ArrayList<>();
     }
-    public MembrePersonnel(String id) {
-    	mailPerso=id;
+
+    public MembrePersonnel(String mail){
+       mailPerso=mail;
     }
 
 	public String getMailPerso() {
@@ -24,14 +23,6 @@ public class MembrePersonnel implements Statut {
 		this.mailPerso = mailPerso;
 	}
 
-	public String getMdpPerso() {
-		return mdpPerso;
-	}
-
-	public void setMdpPerso(String mdpPerso) {
-		this.mdpPerso = mdpPerso;
-	}
-
 	public ArrayList<OffreMembre> getSesReductions() {
 		return sesReductions;
 	}
@@ -39,26 +30,30 @@ public class MembrePersonnel implements Statut {
 	public void setSesReductions(ArrayList<OffreMembre> sesReductions) {
 		this.sesReductions = sesReductions;
 	}
-	
-    @Override
+
+    /*
+    //plus necessaire car defini ds statut class abstraite
     public void sonStatut(Client c) {
         c.setSonStat(this);
 
+    }*/
+    public void calculReduction(Panier panier){
+        super.calculReduction(panier);
+        for(OffreMembre om:sesReductions){
+            om.changerPrix(panier);
+        }
     }
 
-    @Override
     public String toString() {
         return "Le statut du client est MembrePersonnel";
     }
-    
     public boolean equals(Object o) {
-    	if(o==this) return true;
-    	if(o==null) return false;
-    	if(o instanceof MembrePersonnel) {
-    		MembrePersonnel m=(MembrePersonnel) o;
-    		return m.mailPerso==this.mailPerso;
-    	}
-		return false;
+        if(o==this) return true;
+        if(o==null) return false;
+        if(o instanceof MembrePersonnel) {
+            MembrePersonnel m=(MembrePersonnel) o;
+            return m.mailPerso==this.mailPerso;
+        }
+        return false;
     }
-    
 }

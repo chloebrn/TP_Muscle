@@ -1,17 +1,24 @@
 package laFac;
 
+import java.util.ArrayList;
+
 public abstract class Statut {
-    private String nom;
+	protected ArrayList<OffreProduit> offrePdts;
+	protected ArrayList<OffreFlash> offreFlash;
 
-    public Statut() {
-    }
 
-	public String getNom() {
-		return nom;
+	public void sonStatut(Client c){
+		c.setSonStat(this);
+	}
+	public void calculReduction(Panier panier){
+			for(OffreProduit op:offrePdts){
+				op.changerPrix(panier);
+			}
+			for(OffreFlash of:offreFlash){
+				of.changerPrix(panier);
+			}
+
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
 }
 

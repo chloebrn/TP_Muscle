@@ -1,19 +1,91 @@
 package laFac;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Panier {
+public class Panier extends Observable {
 	private double total;
-	private IObserveur dir; //observeur, la direction marketing // ABDOULAYE
-	private HashPerso<Produit> listArticle; // ABDOULAYE
+    private ArrayList<Observer> sesObservateurs;
+	private ArrayList<Produit> contenu;
 
-	public Panier() {
-		listArticle = new HashPerso<>(); //ABDOULAYE
-		total = 0;
+    public Panier() {
+        this.sesObservateurs = new ArrayList<Observer>();
+        this.contenu = new ArrayList<Produit>();
+		this.total=0; //O
+    }
+
+   /* public Panier(ArrayList<Produit> contenu) {
+        this.contenu = contenu;
+    }*/
+
+	public ArrayList<Produit> getContenu() {
+		return this.contenu;
+	}
+
+	public void setContenu(ArrayList<Produit> contenu) {
+		this.contenu = contenu;
+	}
+
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double t) {
+		this.total = t;
+		//setChanged();
+		notifyObservers();
 	}
 	
+	public double calculetotal() {
+		double t=0.;
+		if(contenu.size()!=0) {
+			for(Produit p: contenu) {
+			t+=p.getPrix();
+		}
+		/*if(total>=100) this.notifyObservers();*/
+		}
+		return t; 
+	}
+
+	public void ajoutArticle(Produit p){
+		contenu.add(p);
+		total+=p.getPrix();//utile?
+    }
+
+	@Override
+	public String toString() {
+		return "Je suis un pannier :)";
+	}
+
+/*	@Override
+	public void notifyObservers(Object arg) {
+		System.out.println("jai notifieeee");
+		if(arg instanceof Observer){
+			Observer o= (Observer) arg;
+			o.update(this,arg);
+		}
+	}
+*/
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        sesObservateurs.add(o);
+    }
+
+    @Override
+	public void notifyObservers() {
+		System.out.println("jai notifieeee");
+		for(Observer o:sesObservateurs){
+		    o.update(this,o);
+            System.out.println(o.toString());
+        }
+
+	}
+	/*private IObserveur dir; // ABDOULAYE
+
 	//ABDOULAYE
-	//construteur du panier avec un observeur
 	public Panier(IObserveur io) {
 		this();
 		dir = io;
@@ -21,53 +93,26 @@ public class Panier {
 
 	// ABDOULAYE
 	public void ajouterProduit(Produit p) {
-		listArticle.add(p);
-	}
-	
-	//obtenir la liste des articles sans doublon
-	public ArrayList<Produit> getContenu() {
-		return listArticle.elements();     //ABDOULAYE
-	}
-
-	//accesseur de total
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(float t) {
-		this.total = t;
-	}
-
-	//calcul de la total, chaque prix d'un produit est multiplié par sa quantite
-	public void total() {
-		ArrayList<Produit> contenu = getContenu();
-		int quant ;
-		if (contenu.size() != 0) {
-			for (Produit p : contenu) {
-				quant = listArticle.count(p); //récupérer la quantité de cette produit
-				total += (p.getPrix()*quant);
-			}
-			alerteProduit();  //ABDOULAYE
-			alerteCombinProd(); //ABDOULAYE
-		}
+		contenu.add(p);
 	}
 
 	// ABOULAYE
-	//alerter l'oberserveur pour les produits ajoutés par le clients
 	public void alerteProduit() {
-		for (Produit p : getContenu()) {
-			//chaque produit et sa quantite
-			dir.majProduit(p, listArticle.count(p));
+		for (Produit p : contenu) {
+			dir.majProduit(p);
 		}
 	}
 
 	// ABDOULAYE
-	//notifier l'observeur pour une combinaison de produits
 	public void alerteCombinProd() {
-		dir.majCombProd(getContenu());
+		dir.majCombProd(contenu);
 	}
-	
-	public void imprimeTicket() {
-		System.out.println(listArticle.toString());
+
+	//o:ajout article
+	public void ajoutArticle(Produit p){
+		this.contenu.add(p);
 	}
+	public void alerte(){}
+	*/
 }
+

@@ -1,35 +1,32 @@
 package laFac;
 
+
 import java.util.ArrayList;
 
 public class Client {
     private String nom;
     private Panier sonPanier;
     private Statut sonStat;
-    private static ArrayList<Statut> lesClients=new ArrayList<>();
+	private static ArrayList<Statut> lesClients=new ArrayList<>();
+	//public static ArrayList<OffreCo> sesOffres;
 
     public Client() {
     	nom="undefined";
     	sonPanier=new Panier();
     	sonStat=new ClientSimple();
-    	
     }
-    
-    public Client(String sonNom) {
-    	nom=sonNom;
-    	sonPanier=new Panier();
-    	sonStat=new ClientSimple();
-    	
-    }
+	public Client(String sonNom) {
+		nom=sonNom;
+		sonPanier=new Panier();
+		sonStat=new ClientSimple();
 
+	}
 	public String getNom() {
 		return nom;
 	}
-
-	public void setNom(String nom) {
+    public void setNom(String nom) {
 		this.nom = nom;
 	}
-
 	public Panier getSonPanier() {
 		return sonPanier;
 	}
@@ -45,20 +42,14 @@ public class Client {
 	public void setSonStat(Statut saCat) {
 		this.sonStat = saCat;
 	}
-	
-	public void achete(Produit p) {
-		sonPanier.getContenu().add(p);
-	}
-	
+
 	public static ArrayList<Statut> getLesClients() {
 		return lesClients;
 	}
-
-
 	public static void setLesClients(ArrayList<Statut> lesClients) {
 		Client.lesClients = lesClients;
 	}
-	
+
 	//Ajouter un nouveau client à la base de donnees
 	public static void addClient(Statut s) {
 		if(lesClients.contains(s)) {
@@ -66,11 +57,11 @@ public class Client {
 		}
 		lesClients.add(s);
 	}
-	
-	
-	//Un simple client tente de se connecter avec un identifiant 
+
+
+	//Un simple client tente de se connecter avec un identifiant
 	public void seConnecter(String id, String typeCompte) {
-		
+
 		if(sonStat.equals(typeCompte)) {
 			//exception
 		}
@@ -91,13 +82,13 @@ public class Client {
 	private void seConnecter(Statut id) {
 		if(lesClients.contains(id)) {
 			int i=lesClients.indexOf(id);
-			sonStat=lesClients.get(i); 
+			sonStat=lesClients.get(i);
 		}
 		else {
 			//exception
 		}
 	}
-	
+
 	//
 	public void seDeconnecter() {
 		if(sonStat instanceof ClientSimple) {
@@ -107,7 +98,15 @@ public class Client {
 			sonStat=new ClientSimple();
 		}
 	}
+
+	public void ajoutProduit(Produit p) {
+		sonPanier.getContenu().add(p);
+	}
+	public void payer(){
+    	sonStat.calculReduction(sonPanier);
+    	sonPanier.calculetotal();
+	}
+
 	
-	
-	
+
 }
