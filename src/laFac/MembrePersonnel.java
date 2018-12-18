@@ -2,20 +2,18 @@ package laFac;
 
 import java.util.ArrayList;
 
+
 public class MembrePersonnel extends Statut {
     private String mailPerso;
-    private ArrayList<OffreMembre> sesReductions;
+    public static ArrayList<OffreMembre> sesReductions=new ArrayList<>(); //Catalogue des offres membres
 
-    public MembrePersonnel(){
-        super();
-        mailPerso="undefined";
-        sesReductions=new ArrayList<>();
+    
+    public MembrePersonnel() {
+    	mailPerso="undefined";
+    	sesReductions=new ArrayList<>();
     }
-
-    public MembrePersonnel(String mail) {
-        super();
-        mailPerso=mail;
-        sesReductions=new ArrayList<>();
+    public MembrePersonnel(String id) {
+    	mailPerso=id;
     }
 
 	public String getMailPerso() {
@@ -26,37 +24,44 @@ public class MembrePersonnel extends Statut {
 		this.mailPerso = mailPerso;
 	}
 
-	public ArrayList<OffreMembre> getSesReductions() {
-		return sesReductions;
-	}
 
-	public void setSesReductions(ArrayList<OffreMembre> sesReductions) {
-		this.sesReductions = sesReductions;
-	}
-
-    /*
-    //plus necessaire car defini ds statut class abstraite
+	
+    @Override
     public void sonStatut(Client c) {
         c.setSonStat(this);
 
-    }*/
-    public void calculReduction(Panier panier){
-        super.calculReduction(panier);
-        for(OffreMembre om:sesReductions){
-            om.changerPrix(panier);
-        }
     }
 
+    @Override
     public String toString() {
         return "Le statut du client est MembrePersonnel";
     }
+    
     public boolean equals(Object o) {
-        if(o==this) return true;
-        if(o==null) return false;
-        if(o instanceof MembrePersonnel) {
-            MembrePersonnel m=(MembrePersonnel) o;
-            return m.mailPerso.equals(this.mailPerso);
-        }
-        return false;
+    	if(o==this) return true;
+    	if(o==null) return false;
+    	if(o instanceof MembrePersonnel) {
+    		MembrePersonnel m=(MembrePersonnel) o;
+    		return m.mailPerso==this.mailPerso;
+    	}
+		return false;
     }
+    
+
+    public void calculReduction(Panier sonPanier) {
+		//modifie les prix des produits ayant une offre flash ou offre produit
+		super.calculReduction(sonPanier);
+		//applique offre adherent aux produit concerne
+		for(OffreMembre oMb:sesReductions){
+			oMb.changerPrix(sonPanier);
+			
+		}
+		//appliquer rabais
+		
+		
+	}
+	public static void addSesReductions(OffreMembre offreMembre) {
+		sesReductions.add(offreMembre);
+	}
+    
 }
