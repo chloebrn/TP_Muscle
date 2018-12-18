@@ -10,10 +10,15 @@ public abstract class OffreCo {
 		pdtConcerne = new ArrayList<>();
 		taux=0.d;
     }
+	public OffreCo(double t) {
+   		taux=t;
+		pdtConcerne = new ArrayList<>();
+	}
 	
-	public OffreCo(double t, ArrayList<Produit> pdtConcerne) {
+	public OffreCo(double t, Produit p) {
 		taux=t;
-		this.pdtConcerne = pdtConcerne;
+		pdtConcerne = new ArrayList<>();
+		pdtConcerne.add(p);
 	}
 	public double getTaux() {
 		return taux;

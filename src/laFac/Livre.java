@@ -14,11 +14,11 @@ public class Livre extends Produit{
 		auteur="undefined"; 
 	}
 
-	public String getAuteur() {
+	/*public String getAuteur() {
 		return auteur;
 	}
 
 	public void setAuteur(String auteur) {
 		this.auteur = auteur;
-	} 
+	} */
 }

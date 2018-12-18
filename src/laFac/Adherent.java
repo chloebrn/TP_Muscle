@@ -73,6 +73,7 @@ public class Adherent extends Statut {
 		}
 		//appliquer rabais
 		CarteDeFidelite c=carteMax();
+		c.calculPoint(panier);
 		c.effectueRabais(panier);
 	}
     public String toString() {

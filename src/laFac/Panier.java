@@ -31,7 +31,7 @@ public class Panier extends Observable {
 	public void setTotal(double t) {
 		this.total = t;
 		//setChanged();
-		notifyObservers();
+		//notifyObservers();
 	}
 	
 	public double calculetotal() {

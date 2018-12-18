@@ -8,8 +8,10 @@ public class CarteDeFidelite {
 	public CarteDeFidelite() {
 		totalPoints=0;
 	}
-	public CarteDeFidelite(int p) {
-		totalPoints=p;
+	public CarteDeFidelite(int s) {
+		totalPoints=0;
+		seuil=s;
+		rabais=0.3*seuil;
 	}
 
 	public int getTotalPoints() {
@@ -35,21 +37,24 @@ public class CarteDeFidelite {
 	public void setRabais(double rabais) {
 		this.rabais = rabais;
 	}
+
 	public boolean seuilAtteint(){
 		return (totalPoints>=seuil) ;//faut effectuer le rabais
 	}
 
-	public int calculPoint(Panier panier){
-		int points=0;
+	public void calculPoint(Panier panier){
+		//int points=0;
 		for (Produit p:panier.getContenu()){
-			points+=p.getPointsDeFidelite();
+			totalPoints+=p.getPointsDeFidelite();
 		}
-		return points;
+		System.out.println("total point = " + totalPoints);
+		//return points;
 	}
 
 	public void effectueRabais(Panier panier){
-		totalPoints+=calculPoint(panier);
+		calculPoint(panier);
 		if(this.seuilAtteint()){
+			System.out.println("rabais = " + rabais);
 			panier.setTotal(panier.getTotal()-rabais);
 			totalPoints-=seuil;
 		}

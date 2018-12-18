@@ -3,13 +3,16 @@ package laFac;
 import java.util.ArrayList;
 
 public class OffreFlash extends OffreCo {
-    private ArrayList<Produit> combiProduit;
+    // ArrayList<Produit> combiProduit;
 
     public OffreFlash() {
 		super();
         //super(pdtConcerne);
     }
 
+    public OffreFlash(double d, Produit p){
+        super(d,p);
+    }
 
 	/*public ArrayList<Produit> getProduitsPromo() {
 		return produitsPromo;
@@ -21,9 +24,9 @@ public class OffreFlash extends OffreCo {
 
     @Override
     public void changerPrix(Panier panier) {
-        if(panier.getContenu().containsAll(combiProduit)){
+        if(panier.getContenu().containsAll(pdtConcerne)){
             for(Produit p:panier.getContenu()) {
-                if(combiProduit.contains(p)){
+                if(pdtConcerne.contains(p)){
                     p.setPrix(p.getPrix()*taux);
                 }
             }

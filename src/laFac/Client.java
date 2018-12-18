@@ -104,7 +104,7 @@ public class Client {
 	}
 	public void payer(){
     	sonStat.calculReduction(sonPanier);
-    	sonPanier.calculetotal();
+    	//sonPanier.setTotal(sonPanier.calculetotal());
 	}
 
 	

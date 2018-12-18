@@ -14,21 +14,32 @@ public class Main {
 		Client.addClient(sPAnne);
 		Client.addClient(sPFred);
 		Client.addClient(sAAnne);
+
 		ArrayList<CarteDeFidelite> sesCartes=new ArrayList<>();
 		CarteDeFidelite c1=new CarteDeFidelite(15);
 		sesCartes.add(c1);
 		sAAnne.setSesCartes(sesCartes);
+
 		Tele tv=new Tele("tv", 400.d, 20);
-		OffreProduit o=new OffreProduit(0.1d, tv);
-
-
-
 		Livre l1=new Livre("Harry Poter", 50, 10, "J K Roling");
-		Livre l2=new Livre();
+
+
+		OffreProduit o=new OffreProduit(0.1d, tv);
+		ArrayList<Produit> a=new ArrayList<>();
+		a.add(l1);
+		a.add(tv);
+
+		OffreFlash of=new OffreFlash(0.15d, l1);
+		Livre l2=new Livre("L'alchimiste", 4.99, 3, "Paulo");
+
+		of.pdtConcerne.add(l2);
 
 		System.out.println(anne.getSonStat().toString());
 		anne.seConnecter("anneadherent", "Adherent");
+
 		anne.ajoutProduit(tv);
+		anne.ajoutProduit(l1);
+		//anne.ajoutProduit(l2);
 		anne.payer();
 		System.out.println(anne.getSonStat()+"  "+ anne.getSonPanier().getTotal());
 

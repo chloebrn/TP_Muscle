@@ -9,7 +9,7 @@ public class OffreMembre extends OffreCo {
         super();
     }
 
-    public OffreMembre(double t, ArrayList<Produit> pdtConcerne) {
-        super(t, pdtConcerne);
+    public OffreMembre(double t, Produit p) {
+        super(t, p);
     }
 }

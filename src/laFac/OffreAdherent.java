@@ -9,8 +9,8 @@ public class OffreAdherent extends OffreCo {
 
     }
 
-    public OffreAdherent(double t, ArrayList<Produit> pdtConcerne) {
-        super(t, pdtConcerne);
+    public OffreAdherent(double t, Produit p) {
+        super(t, p);
     }
 
   }
