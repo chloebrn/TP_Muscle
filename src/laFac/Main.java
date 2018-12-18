@@ -30,16 +30,17 @@ public class Main {
 		a.add(tv);
 
 		OffreFlash of=new OffreFlash(0.15d, l1);
-		Livre l2=new Livre("L'alchimiste", 4.99, 3, "Paulo");
+		Livre l2=new Livre("L'alchimiste", 10, 3, "Paulo");
 
 		of.pdtConcerne.add(l2);
+		sAAnne.setOffreFlash(of);
 
 		System.out.println(anne.getSonStat().toString());
 		anne.seConnecter("anneadherent", "Adherent");
 
 		anne.ajoutProduit(tv);
 		anne.ajoutProduit(l1);
-		//anne.ajoutProduit(l2);
+		anne.ajoutProduit(l2);
 		anne.payer();
 		System.out.println(anne.getSonStat()+"  "+ anne.getSonPanier().getTotal());
 

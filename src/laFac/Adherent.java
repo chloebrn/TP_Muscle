@@ -67,11 +67,12 @@ public class Adherent extends Statut {
 	public void calculReduction(Panier panier){
 		//modifie les prix des produits ayant une offre flash ou offre produit
 		super.calculReduction(panier);
-		//applique offre adherent aux produit concerne
+		//applique offre adherent aux produit concernes
 		for(OffreAdherent oAd:sesOffres){
 			oAd.changerPrix(panier);
 		}
 		//appliquer rabais
+		//panier.calculetotal();
 		CarteDeFidelite c=carteMax();
 		c.calculPoint(panier);
 		c.effectueRabais(panier);

@@ -28,14 +28,15 @@ public abstract class OffreCo {
 		this.taux = taux;
 	}
 
-	/*void recalculePrix(Produit p) {
-		p.setPrix(p.getPrix()*taux);
-	}*/
+	void recalculePrix(Produit p) {
+		double res=p.getPrix()*taux;
+		p.setPrix(p.getPrix()-res);
+	}
 	//O:reclacule bis
 	public void changerPrix(Panier panier) {
 		for(Produit p:panier.getContenu()) {
 			if(pdtConcerne.contains(p)){
-				p.setPrix(p.getPrix()*taux);
+				recalculePrix(p);
 			}
 		}
 	}

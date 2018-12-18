@@ -55,7 +55,7 @@ public class CarteDeFidelite {
 		calculPoint(panier);
 		if(this.seuilAtteint()){
 			System.out.println("rabais = " + rabais);
-			panier.setTotal(panier.getTotal()-rabais);
+			panier.rabais(rabais);
 			totalPoints-=seuil;
 		}
 	}

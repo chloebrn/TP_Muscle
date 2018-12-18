@@ -27,9 +27,13 @@ public class OffreFlash extends OffreCo {
         if(panier.getContenu().containsAll(pdtConcerne)){
             for(Produit p:panier.getContenu()) {
                 if(pdtConcerne.contains(p)){
-                    p.setPrix(p.getPrix()*taux);
+                    System.out.println("prix avant = " + p.getPrix());
+                   recalculePrix(p);
+                    System.out.println("prix apres = " + p.getPrix());
+
                 }
             }
+           // panier.calculetotal();
         }
     }
 

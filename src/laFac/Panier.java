@@ -33,23 +33,26 @@ public class Panier extends Observable {
 		//setChanged();
 		//notifyObservers();
 	}
-	
-	public double calculetotal() {
-		double t=0.;
+	public void rabais(double r){
+    	total-=r;
+	}
+	public void calculetotal() {
+
 		if(contenu.size()!=0) {
+			//total = 0;
 			for(Produit p: contenu) {
-			t+=p.getPrix();
+			total+=p.getPrix();
 			}
 			//total=t;
 
 		/*if(total>=100) this.notifyObservers();*/
 		}
-		return t; 
+		//return t;
 	}
 
 	public void ajoutArticle(Produit p){
 		contenu.add(p);
-		total+=p.getPrix();
+
     }
 
 	@Override
