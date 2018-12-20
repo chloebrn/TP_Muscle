@@ -7,7 +7,7 @@ public class Client {
     private String nom;
     private Panier sonPanier;
     private Statut sonStat;
-	private static ArrayList<Statut> lesClients=new ArrayList<>();//Contient aussi les clients simples????????????
+	private static ArrayList<Statut> lesClients=new ArrayList<>();
 
     public Client() {
     	nom="undefined";
@@ -47,17 +47,19 @@ public class Client {
 	}
 
 	//Ajouter un nouveau client à la base de donnees
-	public static void addClient(Statut s) {
+	public static void addClient(Statut s) throws ErreurStatut{
 		if(lesClients.contains(s)) {
 			//Exception new ErreurAjoutClient??
+			throw new ErreurStatut("Ce statut est deja present dans la base.");
 		}
 		lesClients.add(s);
 	}
 
 	//Un simple client tente de se connecter avec un identifiant
-	public void seConnecter(String id, String typeCompte) {
+	public void seConnecter(String id, String typeCompte) throws ErreurStatut {
 		if(sonStat.equals(typeCompte)) {
 			//exception ErreurIdentification "Deja connecter"!!!!
+			throw new ErreurStatut("Deja connecte!");
 		}
 		else if(typeCompte.equals("MembrePersonnel")) {
 			MembrePersonnel m=new MembrePersonnel(id);
@@ -69,24 +71,27 @@ public class Client {
 		}
 		else {
 			//exception throw new ErreurIdentification "Un simple client tente de se connecter"!!!!
+			throw new ErreurStatut("Pas le droit de se connecter!");
 		}
 	}
 
 	//Connecte la personne
-	private void seConnecter(Statut stat) {
+	private void seConnecter(Statut stat) throws ErreurStatut{
 		if(lesClients.contains(stat)) {
 			int i=lesClients.indexOf(stat);
 			sonStat=lesClients.get(i);
 		}
 		else {
 			//exception  throw new ErreurIdentification "Id incorrect"?? ou pas droit??!!!!
+			throw new ErreurStatut("Identifiant incorrect!");
 		}
 	}
 
 	//
-	public void seDeconnecter() {
+	public void seDeconnecter() throws ErreurStatut{
 		if(sonStat instanceof ClientSimple) {
 			//Exception trhow new ErreurDeconnection ??!!!!!!!!!!!
+			throw new ErreurStatut("Un client simple tente de se deconnecter!");
 		}
 		else {
 			sonStat=new ClientSimple();
