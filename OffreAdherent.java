@@ -12,6 +12,7 @@ public class OffreAdherent extends OffreCo {
     public OffreAdherent(double t, Produit p) {
         super(t, p);
         //Si creer => Ajout de l'offre pour tout les clients dans les offreAdherents!!!!!!!!!!!!!!!sinon exceptionnnnnnnnnnnn!!!!!!!!
-        if(p.isOffrable()) Adherent.offreAdherents.add(this);
+        //if(p.isOffrable())
+        if(pdtConcerne.size()!=0) Adherent.offreAdherents.add(this);
     }
 }

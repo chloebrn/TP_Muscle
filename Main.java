@@ -20,23 +20,30 @@ public class Main {
 		sesCartes.add(c1);
 		sAAnne.setSesCartes(sesCartes);
 
-		HighTech ht=new HighTech();
+		Offrable offrable=new Offrable();
+		NonOffrable nonOffrable=new NonOffrable();
+		//HighTech ht=new HighTech();
+		//ht.setSaCategorie(offrable);
 
 		Tele tv=new Tele("tv", 400.d, 20);
+		//tv.setSaCategorie(offrable);
 		Livre l1=new Livre("Harry Poter", 50, 10, "J K Roling");
+		l1.setSaCategorie(offrable);
 		Livre l2=new Livre("L'alchimiste", 10, 3, "Paulo");
-		//tv.setNonOffrable();
-		//!!!!!!Un produit peut il avoir plusieurrrrrrrrrs offreeeessssssssss??????????? si oui dans quel ordre apliquer les offres????????????
-		OffreProduit o=new OffreProduit(0.1d, ht);
-		System.out.println(o.pdtConcerne.size()+ "instance "+ (tv instanceof HighTech));
-		//OffreProduit op=new OffreProduit(0.1d, l1);
-		//l1.setNonOffrable(); plus offrable retirer de liste des offres.
 		ArrayList<Produit> combiP=new ArrayList<>();
 		combiP.add(l1);
 		combiP.add(tv);
+		//!!!!!!Un produit peut il avoir plusieurrrrr=rrrrs offreeeessssssssss??????????? si oui dans quel ordre apliquer les offres????????????
+		OffreProduit o=new OffreProduit(0.1d, tv);
+		OffreProduit op=new OffreProduit(0.1d, l1);
+		tv.setSaCategorie(nonOffrable);
+		OffreFlash of=new OffreFlash(0.1d, combiP);
+		System.out.println(o.pdtConcerne.size()+ " "+ " tv est offrable?" + tv.getSaCategorie());
 
 
-		//OffreFlash of=new OffreFlash(0.10d, combiP);
+
+
+
 
 		anne.seConnecter("anneadherent", "Adherent");
 

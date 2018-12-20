@@ -7,13 +7,14 @@ public class OffreFlash extends OffreCo {
     public OffreFlash(double d, ArrayList<Produit> combiProduit){
         taux=d;
         for(Produit p:combiProduit){
-            if(p.isOffrable()){
+            /*if(p.isOffrable()){
                 pdtConcerne.add(p);
-            }
+            }*/
+            if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
             else {
                 //Si tous les produits ne sont pas offrable on ne peux pas cree l'offre
                 pdtConcerne.clear();
-                System.out.println("new ErreurCreationOffre");//à faire
+                System.out.println("new ErreurCreationOffre flash");//à faire
                 }
         }
         //Si creer => Ajout de l'offre pour tout les clients dans les offreFlashes

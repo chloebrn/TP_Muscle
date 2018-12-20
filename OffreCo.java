@@ -20,9 +20,10 @@ public abstract class OffreCo {
 	public OffreCo(double t, Produit p) {
 		taux=t;
 		pdtConcerne = new ArrayList<>();
-		System.out.println(p.isOffrable());
+		//System.out.println(p.isOffrable());
 		//Si produit offrable on l'ajoute
-		if(p.isOffrable()) {pdtConcerne.add(p);}
+		//if(p.isOffrable()) {pdtConcerne.add(p);}
+		if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
 		//Sinon on ne peut pas creer l'offre
 		else{
 			System.out.println("throw new ErreurCreationOffre");//à faire!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

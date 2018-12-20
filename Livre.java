@@ -1,6 +1,6 @@
 package laFac;
 
-public class Livre extends Produit{
+public class Livre extends PdtCulturel{
 	
 	private String auteur;
 	

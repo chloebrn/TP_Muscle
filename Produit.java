@@ -1,11 +1,12 @@
 package laFac;
 
-public abstract class Produit {
+public class Produit {
 	protected String id;
     protected double prix;
 	protected double reduction;
 	protected int pointsDeFidelite;
-    public static boolean offrable= true;
+	protected Categorie saCategorie;
+	//protected  boolean offrable;
 
     //Tout produit est pottentiellement offrable
     public Produit() {
@@ -14,7 +15,7 @@ public abstract class Produit {
     	pointsDeFidelite=0;
     	//offrable=true;
     }
-    
+
     public Produit(String i, double p, int pts) {
     	id=i;
     	prix=p;
@@ -22,12 +23,12 @@ public abstract class Produit {
 		//offrable=true;
     }
 
-	public boolean isOffrable() {
-		return offrable;
+	public Categorie getSaCategorie() {
+		return saCategorie;
 	}
 
-	public void setNonOffrable() {
-		offrable =false;
+	public void setSaCategorie(Categorie cat) {
+		this.saCategorie = cat;
 	}
 
 	public double getPrix() {
@@ -60,7 +61,8 @@ public abstract class Produit {
 	}
 
 	public void ajoutReduction(double red) {
-		reduction += red;
+			if(reduction<red) reduction = red;
+			else { System.out.println("Deja une meilleure offre");}
 	}
 
 	//????????Pour quoi?????????

@@ -8,10 +8,9 @@ public class Tele extends HighTech {
 
     public Tele(String id, double p, int pts) {
         super(id, p, pts);
-
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object obj) {
         if(obj==this) return true;
         if(obj==null) return false;
@@ -22,5 +21,5 @@ public class Tele extends HighTech {
         }
         return false;
     }
-    }
+    */
 }
