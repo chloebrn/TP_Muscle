@@ -1,23 +1,25 @@
 package laFac;
 
 public class CarteDeFidelite {
-	
-	private int ptsDeFidelite;
+	private int totalPoints;
 	private int seuil;
 	private double rabais;
-	
-	public CarteDeFidelite(int seuil) {
-		ptsDeFidelite=0;
-		this.seuil=seuil;
-		rabais=(double)seuil/15.d;
-	}
-	
-	public int getPointsDeFidelite() {
-		return ptsDeFidelite;
+
+	public CarteDeFidelite() {
+		totalPoints=0;
+	}//Utile si pas de seuil defini pr la carte?????????????
+	public CarteDeFidelite(int s) {
+		totalPoints=0;
+		seuil=s;
+		rabais=0.3*seuil;
 	}
 
-	public void setPointsDeFidelite(int pointsDeFidelite) {
-		this.ptsDeFidelite = pointsDeFidelite;
+	public int getTotalPoints() {
+		return totalPoints;
+	}
+
+	public void setTotalPoints(int totalPoints) {
+		this.totalPoints = totalPoints;
 	}
 
 	public int getSeuil() {
@@ -27,21 +29,34 @@ public class CarteDeFidelite {
 	public void setSeuil(int seuil) {
 		this.seuil = seuil;
 	}
-	
-	public void update(Panier sonPanier) {
-		int pts=0;
-    	for(Produit p:sonPanier.getContenu()) {
-    		pts+=p.getPointsDeFidelite();
-    	}
-		
-		ptsDeFidelite+=pts;
-		if(ptsDeFidelite>seuil) {  
-			ptsDeFidelite-=seuil;
-			sonPanier.soustraitTotal(rabais);
+
+	public double getRabais() {
+		return rabais;
+	}
+
+	public void setRabais(double rabais) {
+		this.rabais = rabais;
+	}
+
+	//Verfie si le seuil de la carte est atteint.
+	public boolean seuilAtteint(){
+		return (totalPoints>=seuil) ;
+	}
+
+	//Mise à jour des points de fidélités.
+	public void calculPoint(Panier panier){
+		for (Produit p:panier.getContenu()){
+			totalPoints+=p.getPointsDeFidelite();
 		}
 	}
-	
-	
-	
 
+	//Applique le rabais au panier si le seuil est atteint.
+	public void effectueRabais(Panier panier){
+		calculPoint(panier);
+		if(this.seuilAtteint()){
+			System.out.println("rabais = " + rabais);
+			panier.rabais(rabais);
+			totalPoints-=seuil;
+		}
+	}
 }
