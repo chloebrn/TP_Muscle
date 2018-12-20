@@ -62,7 +62,7 @@ public class Produit {
 
 	public void ajoutReduction(double red) {
 			if(reduction<red) reduction = red;
-			else { System.out.println("Deja une meilleure offre");}
+			else { System.out.println(id+ " a deja une meilleure offre");}
 	}
 
 	//????????Pour quoi?????????

@@ -3,6 +3,9 @@ package laFac;
 import java.util.ArrayList;
 
 public class OffreFlash extends OffreCo {
+    public OffreFlash(double d){
+        super(d);
+    }
 
     public OffreFlash(double d, ArrayList<Produit> combiProduit) throws ErreurProdNonOffrable {
         taux=d;
@@ -14,7 +17,7 @@ public class OffreFlash extends OffreCo {
             else {
                 //Si tous les produits ne sont pas offrable on ne peux pas cree l'offre
                 pdtConcerne.clear();
-                throw new ErreurProdNonOffrable("Ce produit n'est pas offrable. Erreur de creation de l'offre flash");
+                throw new ErreurProdNonOffrable("Le produit "+ p.getId()+" n'est pas offrable. Erreur de creation de l'offre flash");
                 }
         }
         if(pdtConcerne.size()!=0) Statut.offresClients.add(this);

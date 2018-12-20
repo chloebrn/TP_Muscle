@@ -2,23 +2,29 @@ package laFac;
 
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Client {
+public class Client extends Observable {
     private String nom;
     private Panier sonPanier;
     private Statut sonStat;
 	private static ArrayList<Statut> lesClients=new ArrayList<>();
+	private ArrayList<Observer> sesObservateurs;//liste de ses observateurs à faire!!!!!!!!!!!
 
-    public Client() {
+
+	public Client() {
     	nom="undefined";
     	sonPanier=new Panier();
     	sonStat=new ClientSimple();
+		sesObservateurs=new ArrayList<>();
     }
 
 	public Client(String sonNom) {
 		nom=sonNom;
 		sonPanier=new Panier();
 		sonStat=new ClientSimple();
+		sesObservateurs=new ArrayList<>();
 	}
 
 	public String getNom() {
@@ -109,6 +115,23 @@ public class Client {
 		sonPanier.calculetotal();
     }
 
-	
+	@Override
+	public String toString() {
+		return "Je suis un client :)";
+	}
+
+	@Override
+	public synchronized void addObserver(Observer o) {
+		sesObservateurs.add(o);
+	}
+
+	//A faire!!!!!!!!!!!!
+	@Override
+	public void notifyObservers() {
+		for(Observer o:sesObservateurs){
+			o.update(this,this);
+		}
+
+	}
 
 }

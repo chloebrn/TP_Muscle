@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Panier extends Observable {
+public class Panier /*extends Observable */{
 	private double total;
-    private ArrayList<Observer> sesObservateurs;//liste de ses observateurs à faire!!!!!!!!!!!
+   // private ArrayList<Observer> sesObservateurs;//liste de ses observateurs à faire!!!!!!!!!!!
 	private ArrayList<Produit> contenu;
 
     public Panier() {
-        this.sesObservateurs = new ArrayList<Observer>();
+        //this.sesObservateurs = new ArrayList<Observer>();
         this.contenu = new ArrayList<Produit>();
 		this.total=0;
 	}
@@ -63,7 +63,7 @@ public class Panier extends Observable {
 	}
 
 
-    @Override
+   /* @Override
     public synchronized void addObserver(Observer o) {
         sesObservateurs.add(o);
     }
@@ -71,11 +71,9 @@ public class Panier extends Observable {
 	//A faire!!!!!!!!!!!!
     @Override
 	public void notifyObservers() {
-		System.out.println("jai notifieeee");
 		for(Observer o:sesObservateurs){
-		    o.update(this,o);
-            System.out.println(o.toString());
-        }
+		    o.update(this,this);
+		}
 
 	}
 	/*private IObserveur dir; // ABDOULAYE

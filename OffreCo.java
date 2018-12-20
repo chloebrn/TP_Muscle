@@ -24,7 +24,7 @@ public abstract class OffreCo {
 		if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
 		//Sinon on ne peut pas creer l'offre
 		else{
-			throw new ErreurProdNonOffrable("Ce produit n'est pas offrable");
+			throw new ErreurProdNonOffrable("Le produit "+ p.getId()+" n'est pas offrable");
 		}
    	}
 

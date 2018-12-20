@@ -49,7 +49,7 @@ public class MembrePersonnel extends Statut {
     }
 
     public String toString() {
-        return "Le statut du client est MembrePersonnel";
+        return "MembrePersonnel";
     }
 
     public boolean equals(Object o) {

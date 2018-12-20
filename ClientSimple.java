@@ -13,7 +13,7 @@ public class ClientSimple extends Statut {
     }*/
     @Override
     public String toString() {
-        return "Le statut du client est ClientSimple";
+        return "ClientSimple";
     }
 }
 

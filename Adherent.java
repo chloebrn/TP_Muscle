@@ -80,7 +80,7 @@ public class Adherent extends Statut {
 	}
 
     public String toString() {
-        return "Le statut du client est Adherent";
+        return "Adherent";
     }
 
     public boolean equals(Object o) {
