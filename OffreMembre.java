@@ -7,13 +7,10 @@ public class OffreMembre extends OffreCo {
 
     public OffreMembre() {
         super();
-        //?????????????Ajout dans les offres quand meme???????????
     }
 
-    public OffreMembre(double t, Produit p) {
+    public OffreMembre(double t, Produit p) throws ErreurProdNonOffrable {
         super(t, p);
-        //???Si creer => Ajout de l'offre pour tout les clients dans les offreMembres
-        //if(p.isOffrable()) MembrePersonnel.offreMembres.add(this);
         if(pdtConcerne.size()!=0) MembrePersonnel.offreMembres.add(this);
     }
 }

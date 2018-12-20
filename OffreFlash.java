@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class OffreFlash extends OffreCo {
 
-    public OffreFlash(double d, ArrayList<Produit> combiProduit){
+    public OffreFlash(double d, ArrayList<Produit> combiProduit) throws ErreurProdNonOffrable {
         taux=d;
         for(Produit p:combiProduit){
             /*if(p.isOffrable()){
@@ -14,11 +14,9 @@ public class OffreFlash extends OffreCo {
             else {
                 //Si tous les produits ne sont pas offrable on ne peux pas cree l'offre
                 pdtConcerne.clear();
-                System.out.println("new ErreurCreationOffre flash");//à faire
+                throw new ErreurProdNonOffrable("Ce produit n'est pas offrable. Erreur de creation de l'offre flash");
                 }
         }
-        //Si creer => Ajout de l'offre pour tout les clients dans les offreFlashes
-        //if(pdtConcerne.size()!=0) Statut.offreFlashes.add(this);//à revoir
         if(pdtConcerne.size()!=0) Statut.offresClients.add(this);
     }
 
@@ -28,7 +26,6 @@ public class OffreFlash extends OffreCo {
         if(panier.getContenu().containsAll(pdtConcerne)){
             for(Produit p:panier.getContenu()) {
                 if(pdtConcerne.contains(p)){
-                    //recalculePrix(p);
                     calculeReduction(p);
                 }
             }
