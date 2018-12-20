@@ -121,6 +121,17 @@ public class Main {
 		anne.ajoutProduit(l2);
 		anne.payer();
 		System.out.println(anne.getSonStat()+"  "+ anne.getSonPanier().getTotal());
+		
+		//Abdou
+		Observer alPrd = new AlerteProd();
+		Observer alComb = new AlerteCombinProd();
+		Observer alTot = new AlerteTotal();
+		
+		anne.getSonPanier().addObserver(alTot);
+		anne.getSonPanier().addObserver(alPrd);
+		
+		anne.getSonPanier().notifyObservers();
+
 
 		
 	}
