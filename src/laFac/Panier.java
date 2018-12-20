@@ -8,7 +8,7 @@ public class Panier extends Observable {
 	private double total;
     private ArrayList<Observer> sesObservateurs;
 	private ArrayList<Produit> contenu;
-
+	
     public Panier() {
         this.sesObservateurs = new ArrayList<Observer>();
         this.contenu = new ArrayList<Produit>();
@@ -18,6 +18,7 @@ public class Panier extends Observable {
   	public ArrayList<Produit> getContenu() {
 		return this.contenu;
 	}
+
 
 	public void setContenu(ArrayList<Produit> contenu) {
 		this.contenu = contenu;
@@ -52,7 +53,6 @@ public class Panier extends Observable {
 
 	public void ajoutArticle(Produit p){
 		contenu.add(p);
-
     }
 
 	@Override
@@ -60,15 +60,12 @@ public class Panier extends Observable {
 		return "Je suis un pannier :)";
 	}
 
-/*	@Override
-	public void notifyObservers(Object arg) {
-		System.out.println("jai notifieeee");
-		if(arg instanceof Observer){
-			Observer o= (Observer) arg;
-			o.update(this,arg);
-		}
-	}
-*/
+//	@Override
+//	public void notifyObservers(Object arg) {
+//		System.out.println("jai notifieeee");
+//		
+//	}
+
 
     @Override
     public synchronized void addObserver(Observer o) {
@@ -79,41 +76,13 @@ public class Panier extends Observable {
 	public void notifyObservers() {
 		System.out.println("jai notifieeee");
 		for(Observer o:sesObservateurs){
-		    o.update(this,o);
-            System.out.println(o.toString());
+		    o.update(this, this);
+            //System.out.println(o.toString());
         }
 
 	}
-	/*private IObserveur dir; // ABDOULAYE
-
-	//ABDOULAYE
-	public Panier(IObserveur io) {
-		this();
-		dir = io;
-	}
-
-	// ABDOULAYE
-	public void ajouterProduit(Produit p) {
-		contenu.add(p);
-	}
-
-	// ABOULAYE
-	public void alerteProduit() {
-		for (Produit p : contenu) {
-			dir.majProduit(p);
-		}
-	}
-
-	// ABDOULAYE
-	public void alerteCombinProd() {
-		dir.majCombProd(contenu);
-	}
-
-	//o:ajout article
-	public void ajoutArticle(Produit p){
-		this.contenu.add(p);
-	}
-	public void alerte(){}
-	*/
+	
 }
+
+
 
