@@ -1,23 +1,39 @@
 package laFac;
 
-public abstract class Produit {
-	private String id;
-    private double prix;
-    private int pointsDeFidelite;
+import java.util.ArrayList;
 
-    public Produit() {
+public class Produit {
+	protected String id;
+    protected double prix;
+	protected double reduction;
+	protected int pointsDeFidelite;
+	protected Categorie saCategorie;
+
+    //Tout produit est pottentiellement offrable
+    public Produit () {
     	id="undefined";
     	prix=0.f;
     	pointsDeFidelite=0;
+    	saCategorie=new Offrable();
     }
-    //ABDOULAYE : J'ai changé les float en double parce que les deux étaient mélangés
 
     public Produit(String i, double p, int pts) {
+    	this();
     	id=i;
     	prix=p;
     	pointsDeFidelite=pts;
     }
-    
+
+	public Categorie getSaCategorie() {
+		return saCategorie;
+	}
+
+	public void setSaCategorie(Categorie cat) {
+		this.saCategorie = cat;
+		if(cat instanceof NonOffrable){
+			System.out.println("Attention le produit " + id + " n'est plus offrable. Retirer de la liste des offres.");
+		}
+	}
 
 	public double getPrix() {
 		return prix;
@@ -42,14 +58,17 @@ public abstract class Produit {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	//ABDOULAYE
-	@Override
-	public String toString() {
-		return "Produit [id=" + id + ", prix=" + prix + ", pointsDeFidelite=" + pointsDeFidelite + "]";
+
+	public double getReduction() {
+		return reduction;
 	}
-	
-	//ABDOULAYE
+
+	//Garde la reduction la plus avantageuse.
+	public void ajoutReduction(double red) {
+			if(reduction<red) reduction = red;
+			//else { System.out.println(id+ " a deja une meilleure offre");}
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,7 +81,6 @@ public abstract class Produit {
 		return result;
 	}
 
-	//ABDOULAYE
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

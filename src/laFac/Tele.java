@@ -1,9 +1,12 @@
 package laFac;
 
-public class Tele extends HighTech{
-	
-	public Tele(String id,double p, int pts) {
-		super(id, p, pts);
-	}
+public class Tele extends HighTech {
 
+    public Tele() {
+        super();
+    }
+
+    public Tele(String id, double p, int pts) {
+        super(id, p, pts);
+    }
 }

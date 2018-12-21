@@ -3,38 +3,32 @@ package laFac;
 import java.util.ArrayList;
 
 public class OffreFlash extends OffreCo {
-    // ArrayList<Produit> combiProduit;
-
-    public OffreFlash() {
-		super();
-        //super(pdtConcerne);
+    public OffreFlash(double d){
+        super(d);
     }
 
-    public OffreFlash(double d, Produit p){
-        super(d,p);
+    //Offre Flash cest pour plusieurs produits forcement
+    public OffreFlash(double d, ArrayList<Produit> combiProduit) throws ErreurProdNonOffrable {
+        this(d);
+        for(Produit p:combiProduit){
+            if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
+            else {
+                //Si tous les produits ne sont pas offrable on ne peux pas cree l'offre
+                pdtConcerne.clear();
+                throw new ErreurProdNonOffrable("Le produit "+ p.getId()+" n'est pas offrable. Erreur de creation de l'offre flash");
+                }
+        }
+        if(pdtConcerne.size()!=0) Statut.offreFlashs.add(this);
     }
 
-	/*public ArrayList<Produit> getProduitsPromo() {
-		return produitsPromo;
-	}
-
-	public void setProduitsPromo(ArrayList<Produit> produitsPromo) {
-		this.produitsPromo = produitsPromo;
-	}*/
-
-    @Override
+    //Redefinition de changerPrix pour les offres flashs car il faut verifier que toute la combinaison de produit est présente dans le panier.
     public void changerPrix(Panier panier) {
         if(panier.getContenu().containsAll(pdtConcerne)){
             for(Produit p:panier.getContenu()) {
                 if(pdtConcerne.contains(p)){
-                    System.out.println("prix avant = " + p.getPrix());
-                   recalculePrix(p);
-                    System.out.println("prix apres = " + p.getPrix());
-
+                    calculeReduction(p);
                 }
             }
-           // panier.calculetotal();
         }
     }
-
 }

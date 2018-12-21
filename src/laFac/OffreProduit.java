@@ -6,9 +6,10 @@ public class OffreProduit extends OffreCo {
     public OffreProduit() {
         super();
     }
-    public OffreProduit(double t, Produit p) {
-        super(t, p);
 
+    public OffreProduit(double t, Produit p) throws ErreurProdNonOffrable {
+        super(t, p);
+        if(pdtConcerne.size()!=0) Statut.offrePdts.add(this);
     }
 
 }

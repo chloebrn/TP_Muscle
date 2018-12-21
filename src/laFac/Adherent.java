@@ -5,20 +5,19 @@ import java.util.ArrayList;
 public class Adherent extends Statut {
     private String mailAdherent;
     private ArrayList<CarteDeFidelite> sesCartes;
-    private ArrayList<OffreAdherent> sesOffres;
+    public static ArrayList<OffreAdherent> offreAdherents=new ArrayList<>();
 
-    public Adherent() {
+	public Adherent() {
     	super();
     	mailAdherent="undefined";
     	sesCartes=new ArrayList<>();
-		sesOffres=new ArrayList<>();
-    }
-	public Adherent(String id) {
-		super();
-		mailAdherent=id;
-		sesCartes=new ArrayList<>();
-		sesOffres=new ArrayList<>();
 	}
+
+	public Adherent(String id) {
+		this();
+		mailAdherent=id;
+	}
+
    	public String getMailAdherent() {
 		return mailAdherent;
 	}
@@ -36,11 +35,11 @@ public class Adherent extends Statut {
 	}
 
 	public ArrayList<OffreAdherent> getSesOffres() {
-		return sesOffres;
+		return offreAdherents;
 	}
 
 	public void setSesOffres(ArrayList<OffreAdherent> sesOffres) {
-		this.sesOffres = sesOffres;
+		this.offreAdherents = sesOffres;
 	}
 
 	public void addCarte(int points) {
@@ -48,14 +47,9 @@ public class Adherent extends Statut {
 		sesCartes.add(c);
 	}
 
-	/*
-	//plus necessaire car defini ds statut class abstraite
-	public void sonStatut(Client c) {
-		c.setSonStat(this);
-	}*/
-	//trouver la carte la plus proche du seuil
+	//Renvoi la carte ayant un total de point le plus proche de son seuil. Celle ci sera choisit lors de l'achat.
 	public CarteDeFidelite carteMax() {
-		if(sesCartes.isEmpty()) return null;
+		if(sesCartes.isEmpty()) return null;//Exception??????????? throw ErreurCarteAdherent adh n'a pas de carte de fidélité????????
 		CarteDeFidelite c=sesCartes.get(0);
 		for(CarteDeFidelite carte:sesCartes) {
 			if((carte.getSeuil()-carte.getTotalPoints())<(c.getSeuil()-c.getTotalPoints())) {
@@ -64,28 +58,29 @@ public class Adherent extends Statut {
 		}
 		return c;
 	}
+
+	//Redefinition de la methode car il faut aussi appliquer les offres concernant les adherents, ainsi que un eventuel rabais.
 	public void calculReduction(Panier panier){
-		//modifie les prix des produits ayant une offre flash ou offre produit
 		super.calculReduction(panier);
-		//applique offre adherent aux produit concernes
-		for(OffreAdherent oAd:sesOffres){
+		for(OffreAdherent oAd: offreAdherents){
 			oAd.changerPrix(panier);
 		}
-		//appliquer rabais
-		//panier.calculetotal();
 		CarteDeFidelite c=carteMax();
 		c.calculPoint(panier);
 		c.effectueRabais(panier);
 	}
+
+	@Override
     public String toString() {
-        return "Le statut du client est Adherent";
+        return "Adherent";
     }
-	public boolean equals(Object o) {
+
+    @Override
+    public boolean equals(Object o) {
 		if(o==this) return true;
 		if(o==null) return false;
 		if(o instanceof Adherent) {
 			Adherent a=(Adherent) o;
-			System.out.println("o est adherent");
 			return a.mailAdherent.equals(this.mailAdherent);
 		}
 		return false;

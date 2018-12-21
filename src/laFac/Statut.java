@@ -3,44 +3,27 @@ package laFac;
 import java.util.ArrayList;
 
 public abstract class Statut {
-	protected ArrayList<OffreProduit> offrePdts;
-	protected ArrayList<OffreFlash> offreFlash;
+	public static  ArrayList<OffreProduit> offrePdts=new ArrayList<>();
+	public static ArrayList<OffreFlash> offreFlashs =new ArrayList<>();
 
-	public Statut() {
-		offrePdts=new ArrayList<>();
-		offreFlash=new ArrayList<>();
-	}
+	//public static ArrayList<OffreCo> offresClients=new ArrayList<>();
 
 	public void sonStatut(Client c){
 		c.setSonStat(this);
 	}
+
+	//Applique les reductions pour l'ensembles des offres disponibles à tous les clients.
 	public void calculReduction(Panier panier){
-		System.out.println("tot avant "+ panier.getTotal());
-			for(OffreProduit op:offrePdts){
+		for(OffreProduit op:offrePdts){
 				op.changerPrix(panier);
 			}
-		System.out.println("tot apres offrePdt "+ panier.getTotal());
-			for(OffreFlash of:offreFlash){
+		for(OffreFlash of: offreFlashs){
 				of.changerPrix(panier);
 			}
-		System.out.println("tot apres offreFlash "+ panier.getTotal());
-
-	}
-
-	public ArrayList<OffreProduit> getOffrePdts() {
-		return offrePdts;
-	}
-
-	public void setOffrePdts(ArrayList<OffreProduit> offrePdts) {
-		this.offrePdts = offrePdts;
-	}
-
-	public ArrayList<OffreFlash> getOffreFlash() {
-		return offreFlash;
-	}
-
-	public void setOffreFlash(OffreFlash of) {
-		offreFlash.add(of);
+	/*
+		for(OffreCo op:offresClients){
+			op.changerPrix(panier);
+		}	*/
 	}
 }
 

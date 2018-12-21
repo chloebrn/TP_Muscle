@@ -2,18 +2,19 @@ package laFac;
 
 import java.util.ArrayList;
 
-
 public class MembrePersonnel extends Statut {
     private String mailPerso;
-    public static ArrayList<OffreMembre> sesReductions=new ArrayList<>(); //Catalogue des offres membres
+    public static ArrayList<OffreMembre> offreMembres=new ArrayList<>();
 
-    
-    public MembrePersonnel() {
-    	mailPerso="undefined";
-    	sesReductions=new ArrayList<>();
+    //Est ce necessaire un membre perso a forcement son mail non??????????????????????????,
+    public MembrePersonnel(){
+        super();
+        mailPerso="undefined";
     }
-    public MembrePersonnel(String id) {
-    	mailPerso=id;
+
+    public MembrePersonnel(String mail) {
+        this();
+        mailPerso=mail;
     }
 
 	public String getMailPerso() {
@@ -24,44 +25,35 @@ public class MembrePersonnel extends Statut {
 		this.mailPerso = mailPerso;
 	}
 
+	public ArrayList<OffreMembre> getSesReductions() {
+		return offreMembres;
+	}
 
-	
-    @Override
-    public void sonStatut(Client c) {
-        c.setSonStat(this);
+	public void setSesReductions(ArrayList<OffreMembre> sesReductions) {
+		this.offreMembres = sesReductions;
+	}
 
+    //Redefinition de la methode car il faut aussi appliquer les offres concernant les membres du personnels.
+    public void calculReduction(Panier panier){
+        super.calculReduction(panier);
+        for(OffreMembre om: offreMembres){
+            om.changerPrix(panier);
+        }
     }
 
     @Override
     public String toString() {
-        return "Le statut du client est MembrePersonnel";
+        return "MembrePersonnel";
     }
-    
-    public boolean equals(Object o) {
-    	if(o==this) return true;
-    	if(o==null) return false;
-    	if(o instanceof MembrePersonnel) {
-    		MembrePersonnel m=(MembrePersonnel) o;
-    		return m.mailPerso==this.mailPerso;
-    	}
-		return false;
-    }
-    
 
-    public void calculReduction(Panier sonPanier) {
-		//modifie les prix des produits ayant une offre flash ou offre produit
-		super.calculReduction(sonPanier);
-		//applique offre adherent aux produit concerne
-		for(OffreMembre oMb:sesReductions){
-			oMb.changerPrix(sonPanier);
-			
-		}
-		//appliquer rabais
-		
-		
-	}
-	public static void addSesReductions(OffreMembre offreMembre) {
-		sesReductions.add(offreMembre);
-	}
-    
+    @Override
+    public boolean equals(Object o) {
+        if(o==this) return true;
+        if(o==null) return false;
+        if(o instanceof MembrePersonnel) {
+            MembrePersonnel m=(MembrePersonnel) o;
+            return m.mailPerso.equals(this.mailPerso);
+        }
+        return false;
+    }
 }

@@ -3,19 +3,14 @@ package laFac;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class OffreMembre extends OffreCo {
-	//private HashMap<String,Double> tauxPdtConcerne; //un taux specifique à chaque produit
+
     public OffreMembre() {
         super();
     }
 
-    public OffreMembre(double t, Produit p) {
+    public OffreMembre(double t, Produit p) throws ErreurProdNonOffrable {
         super(t, p);
-
-        MembrePersonnel.addSesReductions(this);
-        
+        if(pdtConcerne.size()!=0) MembrePersonnel.offreMembres.add(this);
     }
-    
-
 }

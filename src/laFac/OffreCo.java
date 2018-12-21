@@ -4,22 +4,29 @@ import java.util.ArrayList;
 
 public abstract class OffreCo {
 	protected double taux;
-	protected ArrayList<Produit> pdtConcerne; //O:liste de produits beneficiant d'une offre co
-	
+	protected ArrayList<Produit> pdtConcerne;
+
    	public OffreCo() {
 		pdtConcerne = new ArrayList<>();
 		taux=0.d;
-    }
+	}
+
 	public OffreCo(double t) {
+   		this();
    		taux=t;
-		pdtConcerne = new ArrayList<>();
-	}
+   	}
 	
-	public OffreCo(double t, Produit p) {
-		taux=t;
-		pdtConcerne = new ArrayList<>();
-		pdtConcerne.add(p);
-	}
+	public OffreCo(double t, Produit p) throws ErreurProdNonOffrable{
+		this(t);
+		//Si produit offrable on l'ajoute
+		//if(p.isOffrable()) {pdtConcerne.add(p);}
+		if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
+		//Sinon on ne peut pas creer l'offre
+		else{
+			throw new ErreurProdNonOffrable("Le produit "+ p.getId()+" n'est pas offrable");
+		}
+   	}
+
 	public double getTaux() {
 		return taux;
 	}
@@ -28,15 +35,27 @@ public abstract class OffreCo {
 		this.taux = taux;
 	}
 
-	void recalculePrix(Produit p) {
-		double res=p.getPrix()*taux;
-		p.setPrix(p.getPrix()-res);
+	public ArrayList<Produit> getPdtConcerne() {
+		return pdtConcerne;
 	}
-	//O:reclacule bis
+
+	public void ajoutProduit(Produit p) throws ErreurProdNonOffrable {
+		if(p.getSaCategorie() instanceof Offrable) pdtConcerne.add(p);
+		else throw new ErreurProdNonOffrable("Ce produit n'est pas offrable");
+	}
+
+	//Calcul la reduction du produit.
+	public void calculeReduction(Produit p) {
+		double res=0;
+		res=p.getPrix()*taux;
+		p.ajoutReduction(res);
+	}
+
+   	//Parcourir le panier et changer le prix des produits bénéficiants de l'offre.
 	public void changerPrix(Panier panier) {
 		for(Produit p:panier.getContenu()) {
 			if(pdtConcerne.contains(p)){
-				recalculePrix(p);
+				calculeReduction(p);
 			}
 		}
 	}
